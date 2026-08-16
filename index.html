@@ -1,0 +1,285 @@
+<!-- 1. PASTE THIS HTML INTO YOUR BODY -->
+<div id="game-container">
+    <div class="game-card">
+        <div id="game-intro">
+            <h1 class="game-title">SUMAIYA’S BIRTHDAY MISSION 💗🎂</h1>
+            <p class="game-subtitle">5 little questions… one secret surprise waiting for you 🌹</p>
+            <button class="start-btn" onclick="startGame()">Start the Mission 🚀</button>
+        </div>
+
+        <div id="game-play" style="display: none;">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p class="progress-text" id="progressText">Question 1/5</p>
+            
+            <h2 id="question-text" class="question-style"></h2>
+            <div id="options-container" class="options-grid"></div>
+            <p id="feedback-msg" class="feedback-style"></p>
+            
+            <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
+        </div>
+
+        <div id="game-countdown" style="display: none;">
+            <h1 id="countdown-timer" class="countdown-text">3</h1>
+        </div>
+
+        <div id="game-finish" style="display: none;">
+            <h2 class="finish-title">MISSION COMPLETE! 🎉❤️</h2>
+            <p class="finish-subtitle">তুমি তোমার Birthday Surprise unlock করে ফেলেছো! 🥹🌹</p>
+            <button class="reveal-btn" onclick="finalReveal()">OPEN MY LAST SURPRISE 💌</button>
+        </div>
+    </div>
+</div>
+
+<!-- THE FINAL SURPRISE REVEAL SECTION -->
+<div id="final-reveal-overlay" class="final-overlay" style="display: none;">
+    <div class="flower-box">
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+        </div>
+    </div>
+    <div class="final-message-box">
+        <h1 class="final-text">Happy Birthday My Pretty Sumaiya 🎂🌹❤️</h1>
+        <p class="final-subtext">এই game-এর আসল prize কোনো gift না…<br>তুমি নিজেই আমার কাছে সবচেয়ে special person. 🥹❤️</p>
+        <p class="signature">— তোমার Jamai, Sazzad ❤️</p>
+    </div>
+</div>
+
+<style>
+/* 2. PASTE THIS CSS INTO YOUR STYLE TAG */
+#game-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 500px;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(255, 105, 180, 0.3);
+    color: #4a4a4a;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-title { color: #d63384; font-size: 1.5rem; margin-bottom: 10px; }
+.game-subtitle { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
+
+.start-btn, .reveal-btn {
+    background: linear-gradient(45deg, #ff758c, #ff7eb3);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+}
+
+.start-btn:hover, .reveal-btn:hover { transform: scale(1.05); background: linear-gradient(45deg, #ff7eb3, #ff758c); }
+
+/* Progress Bar */
+.progress-container { background: rgba(255, 255, 255, 0.4); border-radius: 10px; height: 8px; margin: 15px 0; }
+.progress-bar { background: #ff758c; width: 0%; height: 100%; border-radius: 10px; transition: 0.5s; }
+.progress-text { font-size: 0.8rem; color: #888; margin-bottom: 15px; }
+
+/* Question & Options */
+.question-style { font-size: 1.2rem; margin-bottom: 20px; min-height: 60px; color: #333; }
+.options-grid { display: grid; gap: 10px; }
+.option-btn {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ffb6c1;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 0.95rem;
+}
+.option-btn:hover { background: #fff0f5; border-color: #ff758c; }
+
+.feedback-style { font-size: 0.9rem; margin-top: 15px; min-height: 20px; color: #d63384; font-weight: bold; }
+.hint-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 0.8rem; margin-top: 10px; text-decoration: underline; }
+
+/* Countdown */
+.countdown-text { font-size: 5rem; color: #ff758c; animation: pulse 1s infinite; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+/* Final Reveal Overlay */
+.final-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, #fff0f5 0%, #ffe4e1 100%);
+    z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 20px;
+}
+
+/* Blooming Flower Animation */
+.flower-box { position: relative; width: 100px; height: 100px; margin-bottom: 30px; }
+.flower { position: relative; animation: bloom 2s ease-out; }
+.petal {
+    position: absolute; width: 40px; height: 40px; background: #ff4d6d;
+    border-radius: 50% 50% 0 50%; opacity: 0.8; transform-origin: bottom right;
+}
+.petal:nth-child(1) { transform: rotate(0deg); }
+.petal:nth-child(2) { transform: rotate(72deg); }
+.petal:nth-child(3) { transform: rotate(144deg); }
+.petal:nth-child(4) { transform: rotate(216deg); }
+.petal:nth-child(5) { transform: rotate(288deg); }
+
+@keyframes bloom {
+    0% { transform: scale(0) rotate(0); opacity: 0; }
+    100% { transform: scale(1.2) rotate(360deg); opacity: 1; }
+}
+
+.final-message-box { animation: fadeIn 2s ease-in; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.final-text { color: #d63384; font-size: 1.8rem; margin-bottom: 15px; }
+.final-subtext { color: #555; font-size: 1.1rem; line-height: 1.6; }
+.signature { margin-top: 20px; font-weight: bold; color: #ff4d6d; font-style: italic; }
+
+/* Floating Hearts */
+.heart-pop {
+    position: absolute; pointer-events: none;
+    animation: flyUp 1.5s linear forwards;
+}
+@keyframes flyUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+</style>
+
+<script>
+// 3. PASTE THIS JAVASCRIPT INTO YOUR SCRIPT TAG
+const questions = [
+    {
+        q: "আমাদের সবচেয়ে সুন্দর memory কোনটা বলে তোমার মনে হয়? 🥹",
+        options: ["আমাদের প্রথম সুন্দর কথা 💬", "একসাথে হাসাহাসি করার মুহূর্ত 😂", "আমাদের favourite photo 📸", "সবগুলোই special ❤️"],
+        correct: 3,
+        hint: "সবগুলোই কি সুন্দর না? একটু ভাবো... 😉"
+    },
+    {
+        q: "আমার একটা দিন instantly ভালো করার সবচেয়ে powerful জিনিস কোনটা? 👀",
+        options: ["আমার favourite game 🎮", "ভালো খাবার 🍕", "তোমার একটা message 💌", "ঘুম 😴"],
+        correct: 2,
+        hint: "তোমার একটা text-ই যথেষ্ট! ❤️"
+    },
+    {
+        q: "আমার কাছে ‘Pretty’ শব্দটা শুনলে প্রথম কার কথা মনে পড়ে? 😌",
+        options: ["A random person 😂", "A movie character 🎬", "Sumaiya 👑❤️", "Nobody 😶"],
+        correct: 2,
+        hint: "যার জন্য এই গেমটা বানানো হয়েছে! 👑"
+    },
+    {
+        q: "যদি তোমাকে একটা gift আর একটা wish-এর মধ্যে choose করতে হয়, আমি কোনটা choose করব?",
+        options: ["Expensive gift 🎁", "Lots of money 💸", "তোমার happiness ❤️", "New phone 📱"],
+        correct: 2,
+        hint: "তোমার হাসিই আমার সব! 🥰"
+    },
+    {
+        q: "এই game-এর আসল prize কোথায় লুকানো আছে? 👀",
+        options: ["Behind the flower 🌹", "Inside the cake 🎂", "In the next button ✨", "এখনও reveal হয়নি… 😏❤️"],
+        correct: 3,
+        hint: "শেষ পর্যন্ত দেখো, সারপ্রাইজ ওখানেই! ✨"
+    }
+];
+
+let currentQuestion = 0;
+
+function startGame() {
+    document.getElementById('game-intro').style.display = 'none';
+    document.getElementById('game-play').style.display = 'block';
+    loadQuestion();
+}
+
+function loadQuestion() {
+    const qData = questions[currentQuestion];
+    document.getElementById('question-text').innerText = qData.q;
+    document.getElementById('progressText').innerText = `Question ${currentQuestion + 1}/${questions.length}`;
+    document.getElementById('progressBar').style.width = `${((currentQuestion) / questions.length) * 100}%`;
+    document.getElementById('feedback-msg').innerText = "";
+    
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = "";
+    
+    qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(index);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function checkAnswer(index) {
+    if (index === questions[currentQuestion].correct) {
+        createHearts();
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            startCountdown();
+        }
+    } else {
+        document.getElementById('feedback-msg').innerText = "আবার ভাবো Pretty 😌💗";
+    }
+}
+
+function showHint() {
+    document.getElementById('feedback-msg').innerText = questions[currentQuestion].hint;
+}
+
+function startCountdown() {
+    document.getElementById('game-play').style.display = 'none';
+    document.getElementById('game-countdown').style.display = 'block';
+    let count = 3;
+    const timer = setInterval(() => {
+        count--;
+        if (count > 0) {
+            document.getElementById('countdown-timer').innerText = count;
+        } else {
+            clearInterval(timer);
+            showFinish();
+        }
+    }, 1000);
+}
+
+function showFinish() {
+    document.getElementById('game-countdown').style.display = 'none';
+    document.getElementById('game-finish').style.display = 'block';
+}
+
+function finalReveal() {
+    document.getElementById('final-reveal-overlay').style.display = 'flex';
+    // Add extra floating hearts for final reveal
+    setInterval(createHearts, 300);
+}
+
+function createHearts() {
+    for (let i = 0; i < 5; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = "❤️";
+        heart.className = 'heart-pop';
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = Math.random() * 100 + "vh";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1500);
+    }
+}
+</script>
